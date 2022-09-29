@@ -1,3 +1,4 @@
+
 import os 
 import sys
 
@@ -37,9 +38,27 @@ class mainMenu:
             if layer.type() == QgsRasterLayer.RasterLayer:#la capa debe der tipo raster para que entre en la condicion
                 rLayer= layer
                 self.dialogo.ui.cmbbx1.addItem(rLayer.name())#se agregara al combobox el nombre de la capa raster
-                crs = QgsCoordinateReferenceSystem()
-                self.dialogo.ui.groupBox.
-        
-        
+                epsg=rLayer.crs()#se usara "crs()" para obtener el sistema de proyeccion que nuestra capa tiene
+                self.dialogo.ui.Lbl1.setText(str(epsg.authid()))#Estableceremos en donde se desea visualizar la proyeccion
+                ext= rLayer.extent()#Asigna e imprime las extenciones de nuestra capa
+                self.dialogo.ui.lblExt.setText(str(ext.toString()))
+                xmin = ext.xMinimum()
+                self.dialogo.ui.lblxmn.setText(str(xmin))
+                ymin = ext.yMinimum()
+                self.dialogo.ui.lblymn.setText(str(ymin))
+                xmax = ext.xMaximum()
+                self.dialogo.ui.lblxmx.setText(str(xmax))
+                ymax = ext.yMaximum()
+                self.dialogo.ui.lblymx.setText(str(ymax))
+                ancho= rLayer.width()
+                self.dialogo.ui.lblAncho.setText(str(ancho))
+                largo = rLayer.height()
+                self.dialogo.ui.lblAlto.setText(str(largo))
+                pixelSizex= rLayer.rasterUnitsPerPixelX()
+                self.dialogo.ui.lblTpix.setText(str(pixelSizex))
+
+
+
 def unload(self):
-    QgsApplication.processingRegistry().removeProvider(self.provider)
+    self.IMenu.deleteLater()
+    #QgsApplication.processingRegistry().removeProvider(self.provider)
